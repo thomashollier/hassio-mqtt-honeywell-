@@ -1,6 +1,6 @@
 # hassio-mqtt-honeywell-
 
-This is a complete waste of time and you should just go out and buy a thermostat that is properly integrated in the home assistant ecosystem, unless of course you want to learn how all the pieces fit together and have nothing better to do with your time.
+This is a complete waste of time and you should just go out and buy a thermostat that is properly integrated in the home assistant ecosystem, unless of course you want to learn how all the pieces fit together and have nothing better to do with your time, which would be, well... sad!
 <h2>Home assistant thermostat</h2>
 <li>Use python script to connect to total comfort website (totalcomfort.py)
 <li>Use python script to generate mqtt wrapper that calls totalcomfort.py (climate2mqtt.py)
