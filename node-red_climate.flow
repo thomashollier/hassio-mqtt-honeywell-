@@ -1,0 +1,547 @@
+[
+    {
+        "id": "b0cc99d0.014fa",
+        "type": "tab",
+        "label": "read state change and write new state",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6edc5d82.23e7dc",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_boolean.input_boolean_test",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "fe741f7.75906e"
+            ]
+        ]
+    },
+    {
+        "id": "fe741f7.75906e",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 690,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "47f7abbe.d00cb4",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "input_boolean",
+        "service": "toggle",
+        "data": "{\"entity_id\":\"input_boolean.input_boolean_test\"}",
+        "mergecontext": "",
+        "x": 650,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "175aebee.1a20fc",
+        "type": "inject",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "47f7abbe.d00cb4"
+            ]
+        ]
+    },
+    {
+        "id": "7e155d51.7fc224",
+        "type": "comment",
+        "z": "b0cc99d0.014fa",
+        "name": "This",
+        "info": "* READ STATE CHANGE FROM HA ENTITY\n* pretty cool",
+        "x": 170,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c325482a.d44f9",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set thermostat to cool",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{\"entity_id\":\"climate.central\",\"operation_mode\":\"cool\"}",
+        "mergecontext": "",
+        "x": 740,
+        "y": 460,
+        "wires": [
+            [
+                "81b4a0f9.fc8788"
+            ]
+        ]
+    },
+    {
+        "id": "423185c8.851af4",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_select.thermostat_mode",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 230,
+        "y": 540,
+        "wires": [
+            [
+                "713150a7.5f824"
+            ]
+        ]
+    },
+    {
+        "id": "c580f845.e2d49",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set thermostat to stop",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{\"entity_id\":\"climate.central\",\"operation_mode\":\"stop\"}",
+        "mergecontext": "",
+        "x": 740,
+        "y": 540,
+        "wires": [
+            [
+                "5b9dee98.4edcb"
+            ]
+        ]
+    },
+    {
+        "id": "eee87f98.570178",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set thermostat to heat",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{\"entity_id\":\"climate.central\",\"operation_mode\":\"heat\"}",
+        "mergecontext": "",
+        "x": 740,
+        "y": 620,
+        "wires": [
+            [
+                "1d6fe242.4d56f6"
+            ]
+        ]
+    },
+    {
+        "id": "713150a7.5f824",
+        "type": "switch",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "cool",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "heat",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 510,
+        "y": 540,
+        "wires": [
+            [
+                "c325482a.d44f9"
+            ],
+            [
+                "c580f845.e2d49"
+            ],
+            [
+                "eee87f98.570178"
+            ]
+        ]
+    },
+    {
+        "id": "81b4a0f9.fc8788",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5b9dee98.4edcb",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "1d6fe242.4d56f6",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "32d23832.b54cd",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_select.fan_mode",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 210,
+        "y": 780,
+        "wires": [
+            [
+                "27ba96ee.d06742"
+            ]
+        ]
+    },
+    {
+        "id": "ef4effc9.47e318",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set fan_mode to auto",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_fan_mode",
+        "data": "{\"entity_id\":\"climate.central\",\"fan_mode\":\"auto\"}",
+        "mergecontext": "",
+        "x": 740,
+        "y": 740,
+        "wires": [
+            [
+                "98fc9895.f7d3b8"
+            ]
+        ]
+    },
+    {
+        "id": "1c2a617f.0d3577",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set fan to always_on",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_fan_mode",
+        "data": "{\"entity_id\":\"climate.central\",\"fan_mode\":\"always_on\"}",
+        "mergecontext": "",
+        "x": 740,
+        "y": 820,
+        "wires": [
+            [
+                "e7d33599.e55418"
+            ]
+        ]
+    },
+    {
+        "id": "27ba96ee.d06742",
+        "type": "switch",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "auto",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "always_on",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 510,
+        "y": 780,
+        "wires": [
+            [
+                "ef4effc9.47e318"
+            ],
+            [
+                "1c2a617f.0d3577"
+            ]
+        ]
+    },
+    {
+        "id": "98fc9895.f7d3b8",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "e7d33599.e55418",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "2f260037.6755d",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_number.cool_temp",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 220,
+        "y": 920,
+        "wires": [
+            [
+                "5d659d01.11c284"
+            ]
+        ]
+    },
+    {
+        "id": "db4d1306.fd1588",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set cool temperature",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_temperature",
+        "data": "",
+        "mergecontext": "",
+        "x": 740,
+        "y": 920,
+        "wires": [
+            [
+                "b0c94f9f.c54568"
+            ]
+        ]
+    },
+    {
+        "id": "b0c94f9f.c54568",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5d659d01.11c284",
+        "type": "function",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "func": "var temp = msg.payload;\nmsg.payload = { \n    data: {\n        'entity_id': 'climate.central',\n        'temperature': temp,\n        \"operation_mode\": \"cool\"\n    } \n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 920,
+        "wires": [
+            [
+                "db4d1306.fd1588"
+            ]
+        ]
+    },
+    {
+        "id": "f5e31b27.d091c",
+        "type": "function",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "func": "var temp = msg.payload;\nmsg.payload = { \n    data: {\n        'entity_id': 'climate.central',\n        'temperature': temp,\n        \"operation_mode\": \"heat\"\n    } \n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 1000,
+        "wires": [
+            [
+                "6c7f7413.dd445c"
+            ]
+        ]
+    },
+    {
+        "id": "f5c2a7.71ff9d58",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_number.heat_temp",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 220,
+        "y": 1000,
+        "wires": [
+            [
+                "f5e31b27.d091c"
+            ]
+        ]
+    },
+    {
+        "id": "6c7f7413.dd445c",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set heat temperature",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "set_temperature",
+        "data": "",
+        "mergecontext": "",
+        "x": 740,
+        "y": 1000,
+        "wires": [
+            [
+                "39020f92.2799d"
+            ]
+        ]
+    },
+    {
+        "id": "39020f92.2799d",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "7333e32f.c41664",
+        "type": "server-state-changed",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "server": "c40367cf.dc1eb8",
+        "entityidfilter": "input_boolean.thermostat",
+        "entityidfiltertype": "substring",
+        "haltifstate": "",
+        "outputinitially": false,
+        "x": 220,
+        "y": 1080,
+        "wires": [
+            [
+                "79520790.ed1f58"
+            ]
+        ]
+    },
+    {
+        "id": "79520790.ed1f58",
+        "type": "api-call-service",
+        "z": "b0cc99d0.014fa",
+        "name": "set turn on",
+        "server": "c40367cf.dc1eb8",
+        "service_domain": "climate",
+        "service": "turn_on",
+        "data": "{\"entity_id\":\"climate.central\"}",
+        "mergecontext": "",
+        "x": 710,
+        "y": 1080,
+        "wires": [
+            [
+                "160976d0.07dae9"
+            ]
+        ]
+    },
+    {
+        "id": "160976d0.07dae9",
+        "type": "debug",
+        "z": "b0cc99d0.014fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1010,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "c40367cf.dc1eb8",
+        "type": "server",
+        "z": "",
+        "name": "Home Assistant",
+        "legacy": false
+    }
+]
+
