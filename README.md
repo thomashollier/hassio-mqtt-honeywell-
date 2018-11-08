@@ -3,7 +3,7 @@
 Home assistant thermostat:
 <li>Use python script to connect to total comfort website (totalcomfort.py)
 <li>Use python script to generate mqtt wrapper that calls totalcomfort.py (climate2mqtt.py)
-<li>Create systemd service that launches climate2mqtt.py
+<li>Create systemd service that launches climate2mqtt.py (climate2mqtt.service)
 <li>Use mosquitto broker addon in hassio
 <li>Create MQTT HVAC device in HA
 <li>Create generic HA inputs for user control to be picked up by node red
