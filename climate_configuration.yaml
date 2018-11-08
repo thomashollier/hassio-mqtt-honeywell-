@@ -1,0 +1,58 @@
+climate:
+  - platform: mqtt
+    name: Central
+    modes:
+      - stop
+      - cool
+      - heat
+      - emheat
+    fan_modes:
+      - always_on
+      - auto
+
+    temperature_command_topic: "hvac/central/temperature/set"
+    temperature_state_topic  : "hvac/central/temperature/state"
+
+    current_temperature_topic : "hvac/central/temperature/current"
+
+    mode_command_topic: "hvac/central/mode/set"
+    mode_state_topic: "hvac/central/mode/state"
+
+    fan_mode_command_topic: "hvac/central/fan/set"
+    fan_mode_state_topic : "hvac/central/fan/state"
+
+# Create generic widgets to control thermostat
+input_boolean:
+  thermostat:
+    name: turn on
+    icon: mdi:car
+
+input_select:
+  thermostat_mode:
+    name: thermostat_mode
+    options:
+      - stop
+      - cool
+      - heat
+    initial: stop
+  fan_mode:
+    name: fan_mode
+    options:
+      - auto
+      - always_on
+    initial: auto
+
+input_number:
+  heat_temp:
+    name: Heat_temp
+    initial: 70
+    min: 40
+    max: 85
+    step: 1
+  cool_temp:
+    name: Cool_temp
+    initial: 60
+    min: 40
+    max: 85
+    step: 1
+

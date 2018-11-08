@@ -1,0 +1,9 @@
+[Unit]
+Description=climate to mqtt
+
+[Service]
+ExecStart=/usr/share/hassio/homeassistant/scripts/climate2mqtt.py
+
+[Install]
+WantedBy=multi-user.target
+
